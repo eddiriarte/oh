@@ -1,0 +1,29 @@
+{
+    "name": "eddiriarte/oh",
+    "description": "A simple yet neat PHP Object Hydrator.",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "EddIriarte\\Oh\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Oh\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Eduardo Iriarte-Mendez",
+            "email": "eddiriarte@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-ctype": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^3.8"
+    }
+}
