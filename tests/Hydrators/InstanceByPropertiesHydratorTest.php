@@ -18,9 +18,9 @@ class InstanceByPropertiesHydratorTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider provideTestDataForPersonDto
+     * @dataProvider provideTestDataForPersonStruct
      */
-    public function it_hydrates_public_person_dto(array $data, Manager $manager, array $expected)
+    public function it_hydrates_public_person_struct(array $data, Manager $manager, array $expected)
     {
         $builder = new InstanceByPropertiesHydrator(PublicPersonStruct::class, $manager);
 
@@ -31,7 +31,7 @@ class InstanceByPropertiesHydratorTest extends TestCase
         $this->assertEquals($expected['first_name'], $dto->firstName);
     }
 
-    public function provideTestDataForPersonDto(): Generator
+    public function provideTestDataForPersonStruct(): Generator
     {
         yield [
             ['first_name' => 'Frank', 'last_name' => 'Sinatra'],
@@ -57,9 +57,9 @@ class InstanceByPropertiesHydratorTest extends TestCase
 
     /**
      * @test
-     * @dataProvider provideTestDataForPrivatePersonDto
+     * @dataProvider provideTestDataForPrivatePersonStruct
      */
-    public function it_hydrates_private_person_dto(array $data, Manager $manager, array $expected)
+    public function it_hydrates_private_person_struct(array $data, Manager $manager, array $expected)
     {
         $builder = new InstanceByPropertiesHydrator(PrivatePersonStruct::class, $manager);
 
@@ -70,7 +70,7 @@ class InstanceByPropertiesHydratorTest extends TestCase
         $this->assertEquals($expected['first_name'], $dto->getFirstName());
     }
 
-    public function provideTestDataForPrivatePersonDto(): Generator
+    public function provideTestDataForPrivatePersonStruct(): Generator
     {
         yield [
             ['first_name' => 'Oprah', 'last_name' => 'Winfrey'],
@@ -108,9 +108,9 @@ class InstanceByPropertiesHydratorTest extends TestCase
 
     /**
      * @test
-     * @dataProvider provideTestDataForHeroDto
+     * @dataProvider provideTestDataForHeroStruct
      */
-    public function it_hydrates_nested_hero_dto(array $data, Manager $manager)
+    public function it_hydrates_nested_hero_struct(array $data, Manager $manager)
     {
         $builder = new InstanceByPropertiesHydrator(HeroStruct::class, $manager);
 
@@ -122,7 +122,7 @@ class InstanceByPropertiesHydratorTest extends TestCase
         $this->assertEquals($data['alias']['last_name'], $dto->alias->lastName);
     }
 
-    public function provideTestDataForHeroDto(): Generator
+    public function provideTestDataForHeroStruct(): Generator
     {
         yield [
             [

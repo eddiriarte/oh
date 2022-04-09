@@ -19,9 +19,9 @@ class InstanceByConstructorHydratorTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider provideTestDataForPersonDto
+     * @dataProvider provideTestDataForPersonObject
      */
-    public function it_hydrates_constructed_person_dto(array $data, Manager $manager, array $expected)
+    public function it_hydrates_constructed_person_object(array $data, Manager $manager, array $expected)
     {
         $builder = new InstanceByConstructorHydrator(PersonObject::class, $manager);
 
@@ -34,9 +34,9 @@ class InstanceByConstructorHydratorTest extends TestCase
 
     /**
      * @test
-     * @dataProvider provideTestDataForPersonDto
+     * @dataProvider provideTestDataForPersonObject
      */
-    public function it_hydrates_constructed_readonly_person_dto(array $data, Manager $manager, array $expected)
+    public function it_hydrates_constructed_readonly_person_object(array $data, Manager $manager, array $expected)
     {
         $builder = new InstanceByConstructorHydrator(ReadOnlyPersonObject::class, $manager);
 
@@ -47,7 +47,7 @@ class InstanceByConstructorHydratorTest extends TestCase
         $this->assertEquals($expected['first_name'], $dto->firstName);
     }
 
-    public function provideTestDataForPersonDto(): Generator
+    public function provideTestDataForPersonObject(): Generator
     {
         yield [
             ['first_name' => 'Frank', 'last_name' => 'Sinatra'],
@@ -73,9 +73,9 @@ class InstanceByConstructorHydratorTest extends TestCase
 
     /**
      * @test
-     * @dataProvider provideTestDataForHeroDto
+     * @dataProvider provideTestDataForHeroObject
      */
-    public function it_hydrates_nested_hero_dto(array $data, Manager $manager, array $expected)
+    public function it_hydrates_nested_hero_object(array $data, Manager $manager, array $expected)
     {
         $builder = new InstanceByConstructorHydrator(HeroObject::class, $manager);
 
@@ -90,7 +90,7 @@ class InstanceByConstructorHydratorTest extends TestCase
         $this->assertEquals($expected['alias']['last_name'], $dto->getAlias()->getLastName());
     }
 
-    public function provideTestDataForHeroDto(): Generator
+    public function provideTestDataForHeroObject(): Generator
     {
         yield [
             [
@@ -161,7 +161,7 @@ class InstanceByConstructorHydratorTest extends TestCase
 
     /**
      * @test
-     * @dataProvider provideTestDataForHeroTeamDto
+     * @dataProvider provideTestDataForHeroTeamObject
      */
     public function it_hydrates_dto_with_list_of_objects(array $data, Manager $manager, array $expected)
     {
@@ -179,7 +179,7 @@ class InstanceByConstructorHydratorTest extends TestCase
         }
     }
 
-    public function provideTestDataForHeroTeamDto(): Generator
+    public function provideTestDataForHeroTeamObject(): Generator
     {
         yield [
             [

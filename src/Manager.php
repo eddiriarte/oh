@@ -29,13 +29,13 @@ class Manager
         return $this->config[$option] ?? null;
     }
 
-    public function build(string $className, ?array $parameters = []): mixed
+    public function hydrate(string $className, ?array $parameters = []): mixed
     {
-        if (!isset($this->config[$className])) {
-            $this->config[$className] = $this->initBuilder($className);
+        if (!isset($this->builders[$className])) {
+            $this->builders[$className] = $this->initBuilder($className);
         }
 
-        return $this->config[$className]->build($parameters);
+        return $this->builders[$className]->build($parameters);
     }
 
     private function initBuilder(string $className): Hydrator

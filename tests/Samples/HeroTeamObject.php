@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Oh\Samples;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use EddIriarte\Oh\Attributes\ListEntryType;
+use EddIriarte\Oh\Attributes\ListMemberType;
 
 class HeroTeamObject
 {
     public function __construct(
         private string $name,
-        #[ListEntryType(HeroObject::class)] private ArrayCollection $heroes
+        #[ListMemberType(HeroObject::class)] private ArrayCollection $heroes
     ) {
     }
 

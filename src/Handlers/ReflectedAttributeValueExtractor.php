@@ -2,7 +2,7 @@
 
 namespace EddIriarte\Oh\Handlers;
 
-use EddIriarte\Oh\Attributes\ListEntryType;
+use EddIriarte\Oh\Attributes\ListMemberType;
 use EddIriarte\Oh\Enums\StringCase;
 use EddIriarte\Oh\Manager;
 use ReflectionClass;
@@ -118,7 +118,7 @@ final class ReflectedAttributeValueExtractor
 
     private function instantiateNestedObject(mixed $sourceValue, ReflectionNamedType $reflectionType): mixed
     {
-        return $this->manager->build($reflectionType->getName(), $sourceValue);
+        return $this->manager->hydrate($reflectionType->getName(), $sourceValue);
     }
 
     private function hasArrayableWithObjects(
@@ -130,7 +130,7 @@ final class ReflectedAttributeValueExtractor
             return false;
         }
 
-        $attributes = $reflection->getAttributes(ListEntryType::class);
+        $attributes = $reflection->getAttributes(ListMemberType::class);
         if (count($attributes) < 1) {
             return false;
         }
@@ -163,12 +163,12 @@ final class ReflectedAttributeValueExtractor
         ReflectionParameter|ReflectionProperty $reflection,
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType $reflectionType
     ): mixed {
-        /** @var ListEntryType $attribute */
-        $attribute = $reflection->getAttributes(ListEntryType::class)[0]->newInstance();
+        /** @var ListMemberType $attribute */
+        $attribute = $reflection->getAttributes(ListMemberType::class)[0]->newInstance();
 
         $list = [];
-        foreach ($sourceValue as $key => $item) {
-            $list[$key] = $this->manager->build($attribute->type, $item);
+        foreach ($sourceValue as $key => $member) {
+            $list[$key] = $this->manager->hydrate($attribute->type, $member);
         }
 
         return (new ReflectionClass($reflectionType->getName()))->newInstance($list);
