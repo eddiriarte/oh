@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Oh\Samples;
 
-class NestedHeroDto
+class HeroStruct
 {
-    public ?PublicPersonDto $alias = null;
+    public ?PublicPersonStruct $alias = null;
     public ?float $strength = 100;
     public bool $flying = false;
     public ?string $psy = null;

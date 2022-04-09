@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EddIriarte\Oh\Builders;
+namespace EddIriarte\Oh\Hydrators;
 
-interface Builder
+interface Hydrator
 {
     public function build(?array $parameters = []): mixed;
 }

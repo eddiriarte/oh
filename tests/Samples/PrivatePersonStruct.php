@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Oh\Samples;
 
-class PrivatePersonDto
+class PrivatePersonStruct
 {
     private string $firstName;
     private string $lastName;

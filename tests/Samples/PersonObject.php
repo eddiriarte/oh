@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Oh\Samples;
 
-class ConstructedPersonDto
+class PersonObject
 {
     public function __construct(
         private string $firstName,

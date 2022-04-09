@@ -14,7 +14,7 @@ enum StringCase : string
     case StudlyCase = 'STUDLY_CASE';
     case AnyCase = 'ANY_CASE';
 
-    public function map(string $value): string|array|null
+    public function transform(string $value): string|array|null
     {
         return match ($this) {
             StringCase::SnakeCase => CaseMapper::toSnakeCase($value),

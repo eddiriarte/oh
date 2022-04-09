@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\Oh\Builders;
+namespace Tests\Oh\Hydrators;
 
-use EddIriarte\Oh\Builders\PlainInstanceBuilder;
+use EddIriarte\Oh\Hydrators\InstanceByPropertiesHydrator;
 use EddIriarte\Oh\Enums\StringCase;
 use EddIriarte\Oh\Manager;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
-use Tests\Oh\Samples\NestedHeroDto;
-use Tests\Oh\Samples\PrivatePersonDto;
-use Tests\Oh\Samples\PublicPersonDto;
+use Tests\Oh\Samples\HeroStruct;
+use Tests\Oh\Samples\PrivatePersonStruct;
+use Tests\Oh\Samples\PublicPersonStruct;
 
-class PlainInstanceBuilderTest extends TestCase
+class InstanceByPropertiesHydratorTest extends TestCase
 {
     /**
      * @test
@@ -22,11 +22,11 @@ class PlainInstanceBuilderTest extends TestCase
      */
     public function it_hydrates_public_person_dto(array $data, Manager $manager, array $expected)
     {
-        $builder = new PlainInstanceBuilder(PublicPersonDto::class, $manager);
+        $builder = new InstanceByPropertiesHydrator(PublicPersonStruct::class, $manager);
 
         $dto = $builder->build($data);
 
-        $this->assertInstanceOf(PublicPersonDto::class, $dto);
+        $this->assertInstanceOf(PublicPersonStruct::class, $dto);
         $this->assertEquals($expected['last_name'], $dto->lastName);
         $this->assertEquals($expected['first_name'], $dto->firstName);
     }
@@ -61,11 +61,11 @@ class PlainInstanceBuilderTest extends TestCase
      */
     public function it_hydrates_private_person_dto(array $data, Manager $manager, array $expected)
     {
-        $builder = new PlainInstanceBuilder(PrivatePersonDto::class, $manager);
+        $builder = new InstanceByPropertiesHydrator(PrivatePersonStruct::class, $manager);
 
         $dto = $builder->build($data);
 
-        $this->assertInstanceOf(PrivatePersonDto::class, $dto);
+        $this->assertInstanceOf(PrivatePersonStruct::class, $dto);
         $this->assertEquals($expected['last_name'], $dto->getLastName());
         $this->assertEquals($expected['first_name'], $dto->getFirstName());
     }
@@ -112,11 +112,11 @@ class PlainInstanceBuilderTest extends TestCase
      */
     public function it_hydrates_nested_hero_dto(array $data, Manager $manager)
     {
-        $builder = new PlainInstanceBuilder(NestedHeroDto::class, $manager);
+        $builder = new InstanceByPropertiesHydrator(HeroStruct::class, $manager);
 
         $dto = $builder->build($data);
 
-        $this->assertInstanceOf(NestedHeroDto::class, $dto);
+        $this->assertInstanceOf(HeroStruct::class, $dto);
         $this->assertEquals($data['name'], $dto->name);
         $this->assertEquals($data['alias']['first_name'], $dto->alias->firstName);
         $this->assertEquals($data['alias']['last_name'], $dto->alias->lastName);

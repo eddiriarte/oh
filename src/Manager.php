@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace EddIriarte\Oh;
 
-use EddIriarte\Oh\Builders\Builder;
-use EddIriarte\Oh\Builders\ConstructedInstanceBuilder;
-use EddIriarte\Oh\Builders\PlainInstanceBuilder;
+use EddIriarte\Oh\Hydrators\Hydrator;
+use EddIriarte\Oh\Hydrators\InstanceByConstructorHydrator;
+use EddIriarte\Oh\Hydrators\InstanceByPropertiesHydrator;
 use EddIriarte\Oh\Enums\StringCase;
 use ReflectionClass;
 use ReflectionProperty;
@@ -38,15 +38,15 @@ class Manager
         return $this->config[$className]->build($parameters);
     }
 
-    private function initBuilder(string $className): Builder
+    private function initBuilder(string $className): Hydrator
     {
         $reflectionClass = new ReflectionClass($className);
 
         if ($reflectionClass->hasMethod('__construct')
             && !empty($reflectionClass->getMethod('__construct')->getParameters())) {
-            return new ConstructedInstanceBuilder($className, $this);
+            return new InstanceByConstructorHydrator($className, $this);
         }
 
-        return new PlainInstanceBuilder($className, $this);
+        return new InstanceByPropertiesHydrator($className, $this);
     }
 }

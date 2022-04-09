@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Oh\Samples;
 
-class ConstructedNestedHeroDto
+class HeroObject
 {
     public function __construct(
         private string $name,
         private ?string $psy = null,
         private bool $flying = false,
-        private ?float $strength = 100,
-        private ?ConstructedPersonDto $alias = null
+        private float $strength = 100,
+        private ?PersonObject $alias = null
     ) {
     }
 
@@ -48,9 +48,9 @@ class ConstructedNestedHeroDto
     }
 
     /**
-     * @return ConstructedPersonDto|null
+     * @return PersonObject|null
      */
-    public function getAlias(): ?ConstructedPersonDto
+    public function getAlias(): ?PersonObject
     {
         return $this->alias;
     }
