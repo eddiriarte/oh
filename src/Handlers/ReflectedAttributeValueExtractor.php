@@ -171,6 +171,10 @@ final class ReflectedAttributeValueExtractor
             $list[$key] = $this->manager->hydrate($attribute->type, $member);
         }
 
+        if ($reflectionType->getName() === 'array') {
+            return $list;
+        }
+
         return (new ReflectionClass($reflectionType->getName()))->newInstance($list);
     }
 }

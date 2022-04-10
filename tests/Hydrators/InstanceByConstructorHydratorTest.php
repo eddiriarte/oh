@@ -10,6 +10,7 @@ use EddIriarte\Oh\Manager;
 use Generator;
 use phpDocumentor\Reflection\DocBlock\Tags\Generic;
 use PHPUnit\Framework\TestCase;
+use Tests\Oh\Samples\ArrayedHeroTeamObject;
 use Tests\Oh\Samples\HeroTeamObject;
 use Tests\Oh\Samples\HeroObject;
 use Tests\Oh\Samples\PersonObject;
@@ -163,13 +164,13 @@ class InstanceByConstructorHydratorTest extends TestCase
      * @test
      * @dataProvider provideTestDataForHeroTeamObject
      */
-    public function it_hydrates_dto_with_list_of_objects(array $data, Manager $manager, array $expected)
+    public function it_hydrates_dto_with_list_of_objects(array $data, string $targetClass, Manager $manager, array $expected)
     {
-        $builder = new InstanceByConstructorHydrator(HeroTeamObject::class, $manager);
+        $builder = new InstanceByConstructorHydrator($targetClass, $manager);
 
         $dto = $builder->build($data);
 
-        $this->assertInstanceOf(HeroTeamObject::class, $dto);
+        $this->assertInstanceOf($targetClass, $dto);
         $this->assertEquals($expected['name'], $dto->getName());
         $this->assertCount($expected['team_size'], $dto->getHeroes());
 
@@ -201,6 +202,7 @@ class InstanceByConstructorHydratorTest extends TestCase
                     ]
                 ]
             ],
+            HeroTeamObject::class,
             new Manager(['source_naming_case' => StringCase::SnakeCase]),
             [
                 'name' => 'Batman & Robin',
@@ -218,6 +220,92 @@ class InstanceByConstructorHydratorTest extends TestCase
                         'alias' => [
                             'first_name' => 'Dick',
                             'last_name' => 'Grayson',
+                        ],
+                    ]
+                ]
+            ]
+        ];
+
+        yield [
+            [
+                'name' => 'Justice League',
+                'heroes' => [
+                    [
+                        'name' => 'Batman',
+                        'alias' => [
+                            'first_name' => 'Bruce',
+                            'last_name' => 'Wayne',
+                        ],
+                    ],
+                    [
+                        'name' => 'Superman',
+                        'alias' => [
+                            'first_name' => 'Clark',
+                            'last_name' => 'Kent',
+                        ],
+                    ],
+                    [
+                        'name' => 'Flash',
+                        'alias' => [
+                            'first_name' => 'Barry',
+                            'last_name' => 'Allen',
+                        ],
+                    ],
+                    [
+                        'name' => 'Wonder Woman',
+                        'alias' => [
+                            'first_name' => 'Diana',
+                            'last_name' => '',
+                        ],
+                    ],
+                    [
+                        'name' => 'Aquaman',
+                        'alias' => [
+                            'first_name' => 'Arthur',
+                            'last_name' => 'Curry',
+                        ],
+                    ]
+                ]
+            ],
+            ArrayedHeroTeamObject::class,
+            new Manager(['source_naming_case' => StringCase::SnakeCase]),
+            [
+                'name' => 'Justice League',
+                'team_size' => 5,
+                'heroes' => [
+                    [
+                        'name' => 'Batman',
+                        'alias' => [
+                            'first_name' => 'Bruce',
+                            'last_name' => 'Wayne',
+                        ],
+                    ],
+                    [
+                        'name' => 'Superman',
+                        'alias' => [
+                            'first_name' => 'Clark',
+                            'last_name' => 'Kent',
+                        ],
+                    ],
+                    [
+                        'name' => 'Flash',
+                        'alias' => [
+                            'first_name' => 'Barry',
+                            'last_name' => 'Allen',
+                        ],
+                    ],
+                    [
+                        'name' => 'Wonder Woman',
+                        'alias' => [
+                            'first_name' => 'Diana',
+                            'last_name' => '',
+                        ],
+                    ],
+                    [
+                        'name' => 'Aquaman',
+                        'alias' => [
+                            'first_name' => 'Arthur',
+                            'last_name' => 'Curry',
                         ],
                     ]
                 ]
