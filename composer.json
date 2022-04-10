@@ -1,6 +1,6 @@
 {
     "name": "eddiriarte/oh",
-    "description": "A simple yet neat PHP Object Hydrator.",
+    "description": "Another simple yet neat object hydrator library for PHP.",
     "type": "project",
     "license": "MIT",
     "autoload": {
@@ -19,6 +19,15 @@
             "email": "eddiriarte@gmail.com"
         }
     ],
+    "scripts": {
+        "dry-release": [
+            "standard-version --dry-run"
+        ],
+        "release": [
+            "standard-version",
+            "git push --follow-tags origin main"
+        ]
+    },
     "require": {
         "php": "^8.1",
         "ext-ctype": "*"

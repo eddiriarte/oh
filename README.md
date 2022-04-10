@@ -3,7 +3,7 @@
 OH
 ==
 
-Another small object hydrator library for PHP.
+Another simple yet neat object hydrator library for PHP.
 
 
 ## Install 

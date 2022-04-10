@@ -1,0 +1,10 @@
+{
+  "header": "# OH\n\n\nAnother simple yet neat object hydrator library for PHP.\n\n",
+  "tagPrefix": "",
+  "bumpFiles": [
+    {
+      "filename": "composer.json",
+      "type": "json"
+    }
+  ]
+}
