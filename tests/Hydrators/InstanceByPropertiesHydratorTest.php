@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Oh\Hydrators;
 
+use EddIriarte\Oh\Enums\PropertyVisibility;
 use EddIriarte\Oh\Hydrators\InstanceByPropertiesHydrator;
 use EddIriarte\Oh\Enums\StringCase;
 use EddIriarte\Oh\Manager;
 use Generator;
 use PHPUnit\Framework\TestCase;
-use ReflectionProperty;
 use Tests\Oh\Samples\HeroStruct;
 use Tests\Oh\Samples\PrivatePersonStruct;
 use Tests\Oh\Samples\PublicPersonStruct;
@@ -35,22 +35,34 @@ class InstanceByPropertiesHydratorTest extends TestCase
     {
         yield [
             ['first_name' => 'Frank', 'last_name' => 'Sinatra'],
-            new Manager(['source_naming_case' => StringCase::SnakeCase]),
+            new Manager([
+                'source_naming_case' => StringCase::SnakeCase,
+                'property_visibility' => PropertyVisibility::Public,
+            ]),
             ['first_name' => 'Frank', 'last_name' => 'Sinatra'],
         ];
         yield [
             ['firstName' => 'Halle', 'lastName' => 'Berry'],
-            new Manager(['source_naming_case' => StringCase::CamelCase]),
+            new Manager([
+                'source_naming_case' => StringCase::CamelCase,
+                'property_visibility' => PropertyVisibility::Public,
+            ]),
             ['first_name' => 'Halle', 'last_name' => 'Berry'],
         ];
         yield [
             ['FirstName' => 'Taylor', 'LastName' => 'Swift'],
-            new Manager(['source_naming_case' => StringCase::StudlyCase]),
+            new Manager([
+                'source_naming_case' => StringCase::StudlyCase,
+                'property_visibility' => PropertyVisibility::Public,
+            ]),
             ['first_name' => 'Taylor', 'last_name' => 'Swift'],
         ];
         yield [
             ['first-name' => 'Johnny', 'last-name' => 'Cash'],
-            new Manager(['source_naming_case' => StringCase::KebabCase]),
+            new Manager([
+                'source_naming_case' => StringCase::KebabCase,
+                'property_visibility' => PropertyVisibility::Public,
+            ]),
             ['first_name' => 'Johnny', 'last_name' => 'Cash'],
         ];
     }
@@ -76,7 +88,7 @@ class InstanceByPropertiesHydratorTest extends TestCase
             ['first_name' => 'Oprah', 'last_name' => 'Winfrey'],
             new Manager([
                 'source_naming_case' => StringCase::SnakeCase,
-                'property_visibility' => ReflectionProperty::IS_PRIVATE
+                'property_visibility' => PropertyVisibility::Private,
             ]),
             ['first_name' => 'Oprah', 'last_name' => 'Winfrey'],
         ];
@@ -84,7 +96,7 @@ class InstanceByPropertiesHydratorTest extends TestCase
             ['firstName' => 'Bruce', 'lastName' => 'Lee'],
             new Manager([
                 'source_naming_case' => StringCase::CamelCase,
-                'property_visibility' => ReflectionProperty::IS_PRIVATE
+                'property_visibility' => PropertyVisibility::Private,
             ]),
             ['first_name' => 'Bruce', 'last_name' => 'Lee'],
         ];
@@ -92,7 +104,7 @@ class InstanceByPropertiesHydratorTest extends TestCase
             ['FirstName' => 'Selena', 'LastName' => 'Gomez'],
             new Manager([
                 'source_naming_case' => StringCase::StudlyCase,
-                'property_visibility' => ReflectionProperty::IS_PRIVATE
+                'property_visibility' => PropertyVisibility::Private,
             ]),
             ['first_name' => 'Selena', 'last_name' => 'Gomez'],
         ];
@@ -100,7 +112,7 @@ class InstanceByPropertiesHydratorTest extends TestCase
             ['first-name' => 'Morgan', 'last-name' => 'Freeman'],
             new Manager([
                 'source_naming_case' => StringCase::KebabCase,
-                'property_visibility' => ReflectionProperty::IS_PRIVATE
+                'property_visibility' => PropertyVisibility::Private,
             ]),
             ['first_name' => 'Morgan', 'last_name' => 'Freeman'],
         ];
@@ -135,7 +147,10 @@ class InstanceByPropertiesHydratorTest extends TestCase
                     'last_name' => 'Wayne',
                 ],
             ],
-            new Manager(['source_naming_case' => StringCase::SnakeCase]),
+            new Manager([
+                'source_naming_case' => StringCase::SnakeCase,
+                'property_visibility' => PropertyVisibility::Public,
+            ]),
         ];
     }
 }

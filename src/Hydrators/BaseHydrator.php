@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EddIriarte\Oh\Hydrators;
 
+use EddIriarte\Oh\Enums\PropertyVisibility;
 use EddIriarte\Oh\Enums\StringCase;
 use EddIriarte\Oh\Manager;
 use ReflectionNamedType;
@@ -28,7 +29,7 @@ abstract class BaseHydrator implements Hydrator
         return $this->manager;
     }
 
-    public function propertyVisibility(): int
+    public function propertyVisibility(): PropertyVisibility
     {
         return $this->manager->getConfig('property_visibility');
     }

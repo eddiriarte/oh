@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EddIriarte\Oh;
 
+use EddIriarte\Oh\Enums\PropertyVisibility;
 use EddIriarte\Oh\Hydrators\Hydrator;
 use EddIriarte\Oh\Hydrators\InstanceByConstructorHydrator;
 use EddIriarte\Oh\Hydrators\InstanceByPropertiesHydrator;
@@ -19,7 +20,7 @@ class Manager
     public function __construct(array $config = [])
     {
         $this->config = $config + [
-            'property_visibility' => ReflectionProperty::IS_PUBLIC,
+            'property_visibility' => PropertyVisibility::Private,
             'source_naming_case' => StringCase::SnakeCase,
         ];
     }

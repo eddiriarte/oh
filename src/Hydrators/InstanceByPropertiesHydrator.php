@@ -13,7 +13,7 @@ final class InstanceByPropertiesHydrator extends BaseHydrator
     {
         $extractor = new ReflectedAttributeValueExtractor($this->getManager());
         $classProperties = (new ReflectionClass($this->getTargetClass()))
-            ->getProperties($this->propertyVisibility());
+            ->getProperties($this->propertyVisibility()->reflectionPropertyVisibility());
 
         $instance = (new ReflectionClass($this->getTargetClass()))->newInstance();
         foreach ($classProperties as $reflectionProperty) {
